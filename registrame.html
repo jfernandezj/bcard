@@ -57,28 +57,35 @@
                 <h1>Bcard Social</h1>
                 <h3>Puedes crear tu cuenta gr&aacute;tis para siempre de forma promocional!</h3>
                 <br>
-                <form action="return false;" name="registro" autocomplete="off">
+                <form action="return false;" name="registro" id="registro" autocomplete="off">
                     <div class="container-fluid">
-                        <input class="input input-registry" name="email" type="email" placeholder="Dirección de correo"/>
+                        <input class="input input-registry has-error" name="email" type="email" placeholder="Dirección de correo"/>
                     </div>
                     <div class="container-fluid">
                         <input class="input input-registry" name="password" type="password" placeholder="password"/>
                     </div>
                     <div class="container-fluid">
+                        <br>
+                        <span class="has-error" id="result">asdfasf</span>
+                    </div>
+                    <div class="container-fluid">
+                        <br>
                         <input class="btn fa" type="submit" style="top: 5px">
                     </div>
                 </form>
+                <br>
+                <hr>
                 <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-circle fa-stack-2x text-facebook"></i>
                     <i class="fa fa-facebook fa-stack-1x text-white"></i>
                 </span>
                 <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-circle fa-stack-2x text-twitter"></i>
                     <i class="fa fa-twitter fa-stack-1x text-white"></i>
                 </span>
                 <span class="fa-stack fa-4x">
-                    <i class="fa fa-circle fa-stack-2x"></i>
-                    <i class="fa fa-google-plus-square fa-stack-1x text-white"></i>
+                    <i class="fa fa-circle fa-stack-2x text-gplus"></i>
+                    <i class="fa fa-google-plus fa-stack-1x text-white"></i>
                 </span>
             </div>
         </header>
@@ -123,6 +130,7 @@
         <!-- Bootstrap Core JavaScript -->
         <script src="assets/js/bootstrap.min.js"></script>
         <script src="assets/js/registrame.js"></script>
+        <script src="assets/js/jquery.validate.min.js"></script>
 
         <!-- Custom Theme JavaScript -->
         <script>
