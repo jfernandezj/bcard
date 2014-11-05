@@ -1,91 +1,20 @@
-//$('#registro').validate({
-//    errorElement: 'span',
-//    errorClass: 'help-inline alert-error',
-//    focusInvalid: false,
-//    rules: {
-//        email: {
-//            required: true,
-//            email: true
-//        },
-//        password: {
-//            required: true
-//        }
-//    },
-//    messages: {
-//        email: {
-//            required: "Por favor ingrese un correo.",
-//            email: "Por favor ingrese un correo válido."
-//        },
-//        password: {
-//            required: "Ingrese su nombre."
-//        }
-//    },
-//    invalidHandler: function (event, validator) { //display error alert on form submit   
-//        $('.alert-error').show();
-//    },
-//    highlight: function (e) {
-//        $(e).closest('.control-group').removeClass('info').addClass('alert-error');
-//    },
-//    success: function (e) {
-//        $(e).closest('.control-group').removeClass('error').addClass('info');
-//        $(e).remove();
-//    },
-//    errorPlacement: function (error, element) {
-//        if (element.is(':checkbox') || element.is(':radio')) {
-//            var controls = element.closest('.controls');
-//            if (controls.find(':checkbox,:radio').length > 1)
-//                controls.append(error);
-//            else
-//                error.insertAfter(element.nextAll('.lbl:eq(0)').eq(0));
-//        }
-//        else if (element.is('.select2')) {
-//            error.insertAfter(element.siblings('[class*="select2-container"]:eq(0)'));
-//        }
-//        else if (element.is('.chzn-select')) {
-//            error.insertAfter(element.siblings('[class*="chzn-container"]:eq(0)'));
-//        }
-//        else
-//            error.insertAfter(element);
-//    },
-//    submitHandler: function (form) {
-//        var dataForm = $(form).serialize();
-//        $.ajax({
-//            type: "POST",
-//            url: "[:__BASE_URL:]admin/login/add",
-//            data: dataForm
-//        }).done(function (data) {
-//            try {
-//                var r = JSON.parse(data);
-//                $.gritter.add({
-//                    title: 'Bienvenido!',
-//                    text: "<i>Por favor confirma tu correo para poder iniciar sesión.</i>",
-//                    class_name: 'btn-success'
-//                });
-//                show_box('login-box');
-//            } catch (e) {
-//                $.gritter.add({
-//                    title: 'Error!',
-//                    text: "<i>Si el problema persiste envienos un mensaje :).</i>",
-//                    class_name: 'gritter-error'
-//                });
-//
-//            }
-//        });
-//    }
-//});
-
-
 $(function () {
     $('#registro').validate({
-        debug: true,
-        errorElement: 'span',
+        errorLabelContainer: '#resContainer',
+        errorClass: 'error',
+        wrapper: 'li',
         rules: {
             email: {
                 required: true,
                 email: true
             },
             password: {
-                required: true
+                required: true,
+                minlength: 4
+            },
+            password2: {
+                required: true,
+                equalTo: '[name=password]'
             }
         },
         messages: {
@@ -94,19 +23,43 @@ $(function () {
                 email: "El correo debe tener un formato v&aacute;lido."
             },
             password: {
-                required: 'Ingrese una password de mas de 4 d&iacute;gitos.'
+                required: 'Debe crear una contraseña.',
+                minlength: 'La contraseña debe tener 4 caracteres como mínimo'
+            },
+            password2: {
+                required: "Debe reingresar su contraseña",
+                equalTo: "Las contraseñas no coinciden"
             }
         },
-        errorPlacement: function (error, element) {
-
-        },
-        invalidHandler: function(event, validator){
-            console.log('event-> '+event);
-            console.log('validator-> '+validator);
-        },
         submitHandler: function (form) {
-//            $(form).ajaxSubmit();
-            console.log('exito!');
+            var email = $('[name="email"]').val();
+            var password = $('[name="password"]').val();
+            $.ajax({
+                type: "POST",
+                url: "registrame.php",
+                data: "functionname=" + 'add' + '&email=' + email + '&password=' + password,
+                success: function (data) {
+//                    var a = data;
+//                    setTimeout(function () {
+//                        console.log(a);
+//                        var form = $('[name="registro"]');
+//                        var div = "";
+//                        $('[name="email"]').parent().remove();
+//                        $('[name="password"]').parent().remove();
+//                        $('[name="password2"]').parent().remove();
+//                        $('[name="enviar"]').parent().remove();
+//
+//                        if (a === "1") {
+//                            div = "<div class='col-lg-6 col-lg-offset-3'><h2>Bienvenido!</h2>\n\
+//                            <p>Te hemos enviado un correo donde podr&aacute;s continuar con el proceso de registro.</p></div><br><br><br>";
+//                        } else {
+//                            div = "<div class='col-lg-6 col-lg-offset-3'><p>Ya existe una cuenta registrada a este correo.</p>\n\
+//                                   <p><a href='forgot_password.html'>Olvidaste tu contraseña?</a></p></div><br><br><br>";
+//                        }
+//                        form.append(div);
+//                    }, 1000);
+                }
+            });
         }
     });
 });
